@@ -20,6 +20,8 @@ class MainActivity : AppCompatActivity() {
 
         pokemonsRecyclerView.adapter = adapter
         pokemonsRecyclerView.addItemDecoration(DividerItemDecoration(this, VERTICAL))
+
+        adapter.pokemons = getDummyPokemons()
     }
 
     private fun getDummyPokemons() : List<Pokemon> {
