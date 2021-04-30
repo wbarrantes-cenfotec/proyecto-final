@@ -4,15 +4,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
-import com.example.pokeapp.R
-import com.example.pokeapp.adapters.pokemonAdapter
+import com.example.pokeapp.adapters.PokemonAdapter
 import com.example.pokeapp.models.Pokemon
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_pokemon_list.*
 
 class MainActivity : AppCompatActivity() {
 
-    private val adapter = pokemonAdapter()
+    private val adapter = PokemonAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

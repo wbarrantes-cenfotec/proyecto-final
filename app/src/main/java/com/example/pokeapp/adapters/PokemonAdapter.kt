@@ -12,7 +12,7 @@ import com.example.pokeapp.extensions.mapToVisibility
 import com.example.pokeapp.models.Pokemon
 import kotlinx.android.synthetic.main.pokemon_cell.view.*
 
-class pokemonAdapter : RecyclerView.Adapter<pokemonAdapter.ContactViewHolder>() {
+class PokemonAdapter : RecyclerView.Adapter<PokemonAdapter.ContactViewHolder>() {
 
     var pokemons: List<Pokemon> = emptyList()
         set(value) {
