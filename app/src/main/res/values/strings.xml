@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">PokeApp</string>
-    <string name="trainer_textinput_hint">Entrenador</string>
-    <string name="enter_button_hint">Entrar</string>
+    <string name="trainer_input_hint">Nombre del entrenador</string>
+    <string name="enter_button">Entrar</string>
 </resources>
