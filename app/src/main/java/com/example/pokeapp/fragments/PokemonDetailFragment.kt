@@ -1,58 +1,53 @@
 package com.example.pokeapp.fragments
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.TextView
-import android.widget.ImageView
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.pokeapp.R
-import kotlinx.android.synthetic.main.fragment_pokemon_detail.view.*
-import kotlinx.android.synthetic.main.pokemon_cell.view.*
+import com.example.pokeapp.databinding.FragmentPokemonDetailBinding
 
 class PokemonDetailFragment : Fragment(R.layout.fragment_pokemon_detail) {
 
+    //region Variables
+
+    private var _binding: FragmentPokemonDetailBinding? = null
+    private val binding get() = _binding!!
     private val arguments: PokemonDetailFragmentArgs by navArgs()
-    private lateinit var pokemonImageView: ImageView
-    private lateinit var pokemonNameTextView: TextView
-    private lateinit var pokemonTypeTextView: TextView
-    private lateinit var pokemonWeaknessTextView: TextView
-    private lateinit var pokemonDescriptionTextView: TextView
-    private lateinit var pokemonEvolution1TextView: TextView
-    private lateinit var pokemonEvolution1ImageView: ImageView
+
+    //endregion Variables
+
+    //region Functions
+
+    override fun onCreateView(inflater: LayoutInflater,
+                              container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
+        _binding = FragmentPokemonDetailBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        pokemonImageView = view.findViewById(R.id.imageViewDirectionPomemon)
-        Glide.with(pokemonImageView.context)
+        Glide.with(binding.imageViewDirectionPomemon.context)
                 .load(arguments.pokemon.imageURL)
                 .circleCrop()
-                .into(pokemonImageView.imageViewDirectionPomemon)
+                .into(binding.imageViewDirectionPomemon)
 
-        pokemonNameTextView = view.findViewById(R.id.textViewDirectionPokemonNameDetail)
-        pokemonNameTextView.text = arguments.pokemon.name
+        binding.textViewDirectionPokemonNameDetail.text = arguments.pokemon.name
+        binding.textViewDirectionType.text = arguments.pokemon.type
+        binding.textViewDirectionWeakness.text = arguments.pokemon.weakness
+        binding.textViewDirectionPokemonDescription.text = arguments.pokemon.description
+        binding.textViewDirectionEvolution.text = arguments.pokemon.evolution1
 
-        pokemonTypeTextView = view.findViewById(R.id.textViewDirectionType)
-        pokemonTypeTextView.text = arguments.pokemon.type
-
-        pokemonWeaknessTextView = view.findViewById(R.id.textViewDirectionWeakness)
-        pokemonWeaknessTextView.text = arguments.pokemon.weakness
-
-        pokemonDescriptionTextView = view.findViewById(R.id.textViewDirectionPokemonDescription)
-        pokemonDescriptionTextView.text = arguments.pokemon.description
-
-        pokemonEvolution1TextView = view.findViewById(R.id.textViewDirectionEvolution)
-        pokemonEvolution1TextView.text = arguments.pokemon.evolution1
-
-        pokemonEvolution1ImageView = view.findViewById(R.id.imageViewDirectionPokemonEvolution)
-        Glide.with(pokemonEvolution1ImageView.context)
+        Glide.with(binding.imageViewDirectionPokemonEvolution.context)
                 .load(arguments.pokemon.evolution1imageURL)
                 .circleCrop()
-                .into(pokemonEvolution1ImageView.imageViewDirectionPokemonEvolution)
-
-
+                .into(binding.imageViewDirectionPokemonEvolution)
     }
 
+    //endregion Functions
 }
