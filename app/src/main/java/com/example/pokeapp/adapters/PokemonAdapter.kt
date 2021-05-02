@@ -29,7 +29,6 @@ class PokemonAdapter : RecyclerView.Adapter<PokemonAdapter.ContactViewHolder>() 
                 itemView.textViewPokemonType.visibility = itemView.textViewPokemonType.isVisible.not().mapToVisibility()
             }
 
-//            Picasso.get().load(imageUrl).into(itemView.imageView)
             Glide.with(itemView.context)
                     .load(imageUrl)
                     .circleCrop()

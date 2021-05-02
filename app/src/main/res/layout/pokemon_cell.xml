@@ -40,4 +40,48 @@
         app:layout_constraintTop_toBottomOf="@+id/imageViewPokemonImage"
         tools:text="@tools:sample/lorem" />
 
+    <TextView
+        android:id="@+id/textViewPokemonWeakness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/textViewPokemonName"
+        app:layout_constraintStart_toStartOf="@+id/imageViewPokemonImage"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPokemonImage"
+        tools:text="@tools:sample/lorem" />
+
+    <TextView
+        android:id="@+id/textViewPokemonDescription1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/textViewPokemonName"
+        app:layout_constraintStart_toStartOf="@+id/imageViewPokemonImage"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPokemonImage"
+        tools:text="@tools:sample/lorem" />
+
+    <TextView
+        android:id="@+id/textViewPokemonEvolution1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/textViewPokemonName"
+        app:layout_constraintStart_toStartOf="@+id/imageViewPokemonImage"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewPokemonImage"
+        tools:text="@tools:sample/lorem" />
+
+    <ImageView
+        android:id="@+id/imageViewPokemonImageEvolution1"
+        android:layout_width="144dp"
+        android:layout_height="146dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@drawable/zorua" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

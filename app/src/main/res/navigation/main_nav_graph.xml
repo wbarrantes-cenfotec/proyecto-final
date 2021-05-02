@@ -17,5 +17,14 @@
         android:id="@+id/pokemonListFragment"
         android:name="com.example.pokeapp.fragments.PokemonListFragment"
         android:label="PokemonListFragment"
-        tools:layout="@layout/fragment_pokemon_list"/>
+        tools:layout="@layout/fragment_pokemon_list">
+    <action
+        android:id="@+id/action_pokemonListFragment_to_pokemonDetailFragment"
+        app:destination="@id/pokemonDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pokemonDetailFragment"
+        android:name="com.example.pokeapp.fragments.PokemonDetailFragment"
+        android:label="PokemonDetailFragment"
+        tools:layout="@layout/fragment_pokemon_detail"/>
 </navigation>
