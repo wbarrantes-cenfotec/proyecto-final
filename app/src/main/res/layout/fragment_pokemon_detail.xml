@@ -8,7 +8,7 @@
     tools:context=".fragments.PokemonDetailFragment">
 
     <ImageView
-        android:id="@+id/imageViewPomemon"
+        android:id="@+id/imageViewDirectionPomemon"
         android:layout_width="144dp"
         android:layout_height="146dp"
         android:layout_marginStart="16dp"
@@ -18,26 +18,29 @@
         tools:srcCompat="@drawable/zorua" />
 
     <TextView
-        android:id="@+id/textViewPokemonNameDetail"
+        android:id="@+id/textViewDirectionPokemonNameDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Nombre"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
-        app:layout_constraintBottom_toTopOf="@+id/imageViewPomemon"
+        app:layout_constraintBottom_toTopOf="@+id/imageViewDirectionPomemon"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.479"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.505" />
 
     <TextView
-        android:id="@+id/textViewPokemonDescription"
+        android:id="@+id/textViewDirectionPokemonDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="84dp"
         android:text="Descripcion"
+        android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewInputWeakness" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewDirectionWeakness" />
 
     <TextView
         android:id="@+id/textViewTipo"
@@ -48,8 +51,8 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageViewPomemon"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPokemonNameDetail" />
+        app:layout_constraintStart_toEndOf="@+id/imageViewDirectionPomemon"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDirectionPokemonNameDetail" />
 
     <TextView
         android:id="@+id/textViewWeakness"
@@ -61,27 +64,28 @@
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toEndOf="@+id/imageViewPomemon"
-        app:layout_constraintTop_toBottomOf="@+id/textViewInputType" />
+        app:layout_constraintStart_toEndOf="@+id/imageViewDirectionPomemon"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDirectionType" />
 
     <TextView
-        android:id="@+id/textViewInputType"
+        android:id="@+id/textViewDirectionType"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="Tipo"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageViewPomemon"
+        app:layout_constraintStart_toEndOf="@+id/imageViewDirectionPomemon"
         app:layout_constraintTop_toBottomOf="@+id/textViewTipo" />
 
     <TextView
-        android:id="@+id/textViewInputWeakness"
+        android:id="@+id/textViewDirectionWeakness"
         android:layout_width="58dp"
         android:layout_height="17dp"
         android:layout_marginTop="20dp"
         android:text="Debilidad"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageViewPomemon"
+        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintStart_toEndOf="@+id/imageViewDirectionPomemon"
         app:layout_constraintTop_toBottomOf="@+id/textViewWeakness" />
 
     <TextView
@@ -93,6 +97,30 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Medium"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPokemonDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/textViewDirectionPokemonDescription" />
+
+    <TextView
+        android:id="@+id/textViewDirectionEvolution"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="evolucion"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewEvolutions" />
+
+    <ImageView
+        android:id="@+id/imageViewDirectionPokemonEvolution"
+        android:layout_width="144dp"
+        android:layout_height="146dp"
+        android:src="@drawable/zorua"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewDirectionEvolution"
+        app:layout_constraintVertical_bias="0.104" />
 </androidx.constraintlayout.widget.ConstraintLayout>
