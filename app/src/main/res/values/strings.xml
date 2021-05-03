@@ -7,4 +7,10 @@
     <string name="required_field_text">Campo requerido!</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="list_title">ESCOGE TU POKEMON</string>
+    <string name="nombre_pokemon">nombre pokemon</string>
+    <string name="pokemon_type_title">Tipo</string>
+    <string name="pokemon_weakness_title">Debilidad</string>
+    <string name="pokemon_description_title">Descripcion</string>
+    <string name="pokemon_evolution_title">Evoluciones</string>
 </resources>

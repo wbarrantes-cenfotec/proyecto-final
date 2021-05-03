@@ -13,5 +13,9 @@
     <color name="blue_600">#4A6572</color>
     <color name="orange_500">#F9AA33</color>
     <color name="orange_800">#CB7C06</color>
+    <color name="login_blue">#202E4B</color>
+    <color name="login_second_blue">#36445F</color>
+    <color name="custom_yellow">#F8AA34</color>
+    <color name="custom_second_yellow">#FCEBA8</color>
 
 </resources>

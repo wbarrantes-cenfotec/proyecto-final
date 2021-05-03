@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/custom_second_yellow">
 
     <fragment
         android:id="@+id/inner_navhost_fragment"
@@ -25,7 +26,10 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_navigation_menu">
+        app:menu="@menu/bottom_navigation_menu"
+        app:backgroundTint="@color/custom_yellow"
+        app:itemIconTint="@color/black"
+        app:itemTextColor="@color/black">
 
     </com.google.android.material.bottomnavigation.BottomNavigationView>
 

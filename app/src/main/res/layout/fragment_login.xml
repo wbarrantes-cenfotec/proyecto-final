@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/login_blue"
+    >
 
     <ImageView
         android:id="@+id/imageView"
@@ -25,6 +27,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:errorEnabled="true"
+        app:boxBackgroundColor="@color/login_second_blue"
+        android:textColorHint="@color/white"
+        app:startIconTint="@color/white"
+        app:hintTextColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/radioGroup"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintHorizontal_bias="0.5"
@@ -38,6 +44,7 @@
             android:id="@+id/trainerEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/white"
             android:hint="@string/trainer_input_hint"
             android:inputType="textPersonName" />
 
@@ -59,14 +66,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="@string/men_text" />
+            android:text="@string/men_text"
+            android:textColor="@color/white"/>
 
         <RadioButton
             android:id="@+id/femaleRadioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="false"
-            android:text="@string/female_text" />
+            android:text="@string/female_text"
+            android:textColor="@color/white"/>
     </RadioGroup>
 
     <Button
@@ -76,6 +85,8 @@
         android:layout_marginTop="32dp"
         android:layout_weight="1"
         android:text="@string/enter_button"
+        android:backgroundTint="@color/custom_yellow"
+        android:textColor="@color/login_blue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintHorizontal_bias="0.5"
