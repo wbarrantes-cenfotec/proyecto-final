@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_nav_graph"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main_nav_graph"
     app:startDestination="@id/loginFragment"
     xmlns:tools="http://schemas.android.com/tools">
 
@@ -10,25 +11,12 @@
         android:label="LoginFragment"
         tools:layout="@layout/fragment_login">
         <action
-            android:id="@+id/action_loginFragment_to_pokemonListFragment"
-            app:destination="@id/pokemonListFragment" />
+            android:id="@+id/action_loginFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
     </fragment>
     <fragment
-        android:id="@+id/pokemonListFragment"
-        android:name="com.example.pokeapp.fragments.PokemonListFragment"
-        android:label="PokemonListFragment"
-        tools:layout="@layout/fragment_pokemon_list">
-        <action
-            android:id="@+id/action_pokemonListFragment_to_pokemonDetailFragment3"
-            app:destination="@id/pokemonDetailFragment" />
-    </fragment>
-    <fragment
-        android:id="@+id/pokemonDetailFragment"
-        android:name="com.example.pokeapp.fragments.PokemonDetailFragment"
-        android:label="fragment_pokemon_detail"
-        tools:layout="@layout/fragment_pokemon_detail" >
-        <argument
-            android:name="pokemon"
-            app:argType="com.example.pokeapp.models.Pokemon" />
-    </fragment>
+        android:id="@+id/mainFragment"
+        android:name="com.example.pokeapp.fragments.MainFragment"
+        android:label="MainFragment"
+        tools:layout="@layout/fragment_main"/>
 </navigation>

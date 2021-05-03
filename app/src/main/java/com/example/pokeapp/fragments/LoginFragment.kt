@@ -42,7 +42,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             if (isValidForm())
             {
                 // make the transition between the login to the main fragment
-                findNavController().navigate(R.id.action_loginFragment_to_pokemonListFragment)
+                findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
             }
         }
     }

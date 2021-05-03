@@ -37,7 +37,7 @@ class PokemonAdapter : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() 
                 //        "Tierra","Cuanto más potente es la energía eléctrica que genera este Pokémon, más suaves y elásticas se vuelven las bolsas de sus mejillas.",
                 //        "Raichu","https://assets.pokemon.com/assets/cms2/img/pokedex/full/026.png"))
 
-                val action = PokemonListFragmentDirections.actionPokemonListFragmentToPokemonDetailFragment3(Pokemon(name,imageUrl,type,weakness,description,evolution1,evolution1imageURL))
+                val action = PokemonListFragmentDirections.actionPokemonListFragment2ToPokemonDetailFragment2(Pokemon(name,imageUrl,type,weakness,description,evolution1,evolution1imageURL))
                 Navigation.findNavController(itemView).navigate(action);
 
             }

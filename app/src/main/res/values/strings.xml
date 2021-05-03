@@ -5,4 +5,6 @@
     <string name="men_text">Hombre</string>
     <string name="female_text">Mujer</string>
     <string name="required_field_text">Campo requerido!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
