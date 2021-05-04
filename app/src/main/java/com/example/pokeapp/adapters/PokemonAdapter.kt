@@ -27,6 +27,7 @@ class PokemonAdapter : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() 
     inner class PokemonViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(name: String, imageUrl: String, type: String, weakness: String,
                  description: String, evolution1: String,evolution1imageURL: String) {
+
             itemView.textViewPokemonName.text = name
             itemView.textViewPokemonType.text = type
 
@@ -37,9 +38,19 @@ class PokemonAdapter : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() 
                 //        "Tierra","Cuanto más potente es la energía eléctrica que genera este Pokémon, más suaves y elásticas se vuelven las bolsas de sus mejillas.",
                 //        "Raichu","https://assets.pokemon.com/assets/cms2/img/pokedex/full/026.png"))
 
-                val action = PokemonListFragmentDirections.actionPokemonListFragment2ToPokemonDetailFragment2(Pokemon(name,imageUrl,type,weakness,description,evolution1,evolution1imageURL))
-                Navigation.findNavController(itemView).navigate(action);
+                val action = PokemonListFragmentDirections
+                        .actionPokemonListFragment2ToPokemonDetailFragment2(
+                                Pokemon(name,
+                                        imageUrl,
+                                        type,
+                                        weakness,
+                                        description,
+                                        evolution1,
+                                        evolution1imageURL
+                                )
+                        )
 
+                Navigation.findNavController(itemView).navigate(action)
             }
 
             Glide.with(itemView.context)

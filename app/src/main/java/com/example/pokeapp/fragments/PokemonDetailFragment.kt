@@ -49,5 +49,11 @@ class PokemonDetailFragment : Fragment(R.layout.fragment_pokemon_detail) {
                 .into(binding.imageViewDirectionPokemonEvolution)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        _binding = null
+    }
+
     //endregion Functions
 }

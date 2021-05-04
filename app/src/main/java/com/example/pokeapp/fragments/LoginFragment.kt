@@ -67,6 +67,12 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         return true
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+
+        _binding = null
+    }
+
     //endregion Functions
 
     //region TextFieldValidation
