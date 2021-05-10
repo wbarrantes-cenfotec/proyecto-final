@@ -9,6 +9,7 @@ import com.example.pokeapp.databinding.PokemonCellBinding
 import com.example.pokeapp.fragments.PokemonListFragmentDirections
 import com.example.pokeapp.models.Pokemon
 import com.example.pokeapp.models.PokemonResult
+import java.util.*
 
 class PokemonAdapter : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() {
 
@@ -25,7 +26,7 @@ class PokemonAdapter : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() 
             val pokemonImageUrl = pokemon.getImageUrl()
 
             // set the pokemon name
-            binding.textViewPokemonName.text = pokemon.name.toUpperCase()
+            binding.textViewPokemonName.text = pokemon.name.toUpperCase(Locale.ROOT)
 
             // set the click event listener
             binding.root.setOnClickListener {

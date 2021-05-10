@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pokeapp.api.IPokeAPIService
+import com.example.pokeapp.extensions.Constants
 import com.example.pokeapp.models.PokemonResponse
 import com.example.pokeapp.models.PokemonResult
 import retrofit2.Call
@@ -19,7 +20,7 @@ class PokemonListViewModel : ViewModel() {
 
     init {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://pokeapi.co/api/v2/")
+            .baseUrl(Constants.POKE_API_BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
@@ -28,7 +29,7 @@ class PokemonListViewModel : ViewModel() {
 
     fun makeAPIRequest() {
 
-        pokeApiService.getPokemonList(1118)
+        pokeApiService.getPokemonList(Constants.TOTAL_POKEMONS)
             .enqueue(object: Callback<PokemonResponse>{
                 override fun onResponse(
                     call: Call<PokemonResponse>,
