@@ -12,22 +12,22 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
+        android:contentDescription="@string/app_name"
         app:layout_constraintBottom_toTopOf="@+id/trainerInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_chainStyle="packed"
-        app:srcCompat="@drawable/poke_app_banner"
-        android:contentDescription="@string/app_name"/>
+        app:srcCompat="@drawable/poke_app_banner" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/trainerInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:textColorHint="@color/white"
         app:errorEnabled="true"
         app:boxBackgroundColor="@color/login_second_blue"
-        android:textColorHint="@color/white"
         app:startIconTint="@color/white"
         app:hintTextColor="@color/white"
         app:layout_constraintBottom_toTopOf="@+id/radioGroup"
@@ -45,7 +45,8 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:hint="@string/trainer_input_hint"
-            android:inputType="textPersonName" />
+            android:inputType="textPersonName"
+            android:imeOptions="actionDone" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
