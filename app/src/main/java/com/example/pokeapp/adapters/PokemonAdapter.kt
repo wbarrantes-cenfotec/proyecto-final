@@ -1,5 +1,6 @@
 package com.example.pokeapp.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.navigation.Navigation
@@ -33,13 +34,9 @@ class PokemonAdapter : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() 
 
                 val action = PokemonListFragmentDirections
                     .actionPokemonListFragment2ToPokemonDetailFragment2(
-                        Pokemon(pokemon.name,
+                        Pokemon(pokemon.name.toUpperCase(),
                             pokemonImageUrl,
-                            "type",
-                            "weakness",
-                            "description",
-                            "evolution1",
-                            "evolution1imageURL"
+                            pokemon.url
                         )
                     )
 
