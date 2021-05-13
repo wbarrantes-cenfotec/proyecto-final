@@ -7,9 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.example.pokeapp.R
 import com.example.pokeapp.databinding.FragmentLoginBinding
+import com.example.pokeapp.viewmodels.LoginViewModel
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
@@ -17,6 +19,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: LoginViewModel by viewModels()
 
     //endregion Variables
 
@@ -36,11 +39,21 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
         setupListeners()
 
-        binding.loginButton.setOnClickListener{
+        viewModel.hasValidTrainer().observe(viewLifecycleOwner)  {
+            if (it > 0) {
+                // make the transition between the login to the main fragment
+                findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
+            }
+        }
+
+        binding.loginButton.setOnClickListener {
 
             // check if the login form is valid before to proceed
             if (isValidForm())
             {
+                // Create the new trainer
+                viewModel.createNewTrainer(binding.trainerEditText.text.toString())
+
                 // make the transition between the login to the main fragment
                 findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
             }
