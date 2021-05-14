@@ -49,8 +49,7 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
         binding.loginButton.setOnClickListener {
 
             // check if the login form is valid before to proceed
-            if (isValidForm())
-            {
+            if (isValidForm()) {
                 // Create the new trainer
                 viewModel.createNewTrainer(binding.trainerEditText.text.toString())
 
