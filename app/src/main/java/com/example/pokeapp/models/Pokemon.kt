@@ -5,7 +5,6 @@ import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-
 data class Pokemon(
     @Expose @SerializedName("name") val name: String,
     @Expose @SerializedName("imageURL") val imageURL: String,

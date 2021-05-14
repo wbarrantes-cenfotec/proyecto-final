@@ -1,6 +1,5 @@
 package com.example.pokeapp.viewmodels
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pokeapp.api.IPokeAPIService
@@ -18,6 +17,7 @@ class PokemonDetailViewModel : ViewModel() {
     var pokemonDescriptionCompleted = MutableLiveData<String>()
     val pokemonDetailSpecies = MutableLiveData<PokemonSpecies>()
     val pokemonEvolutionChain = MutableLiveData<EvolutionChain>()
+    val pokemonEvolutionList = MutableLiveData<List<ChainLink>>()
     private var pokeApiService: IPokeAPIService
 
     init {
@@ -30,7 +30,9 @@ class PokemonDetailViewModel : ViewModel() {
     }
 
     fun getPokemonDetail(pokemonURL: String) {
-        var id = getPokemonId(pokemonURL)
+
+        val id = getPokemonId(pokemonURL)
+
         pokeApiService.getPokemonDetail(id)
             .enqueue(object: Callback<PokemonDetail> {
                 override fun onResponse(
@@ -49,17 +51,21 @@ class PokemonDetailViewModel : ViewModel() {
     }
 
     fun getPokemonSpecies(speciesURL: String) {
-        var id = getSpeciesId(speciesURL)
+
+        val id = getSpeciesId(speciesURL)
+
         pokeApiService.getPokemonSpecies(id)
             .enqueue(object: Callback<PokemonSpecies> {
                 override fun onResponse(
                     call: Call<PokemonSpecies>,
                     response: Response<PokemonSpecies>
                 ) {
-                    response.body()?.let {pokemonSpecies ->
+                    response.body()?.let { pokemonSpecies ->
                         pokemonDetailSpecies.postValue(pokemonSpecies)
+
                         // GetPokemonEvolutionChain
                         getEvolutionChain(pokemonSpecies.evolutionChain.url)
+
                         // GetPokemonDescription
                         pokemonDescriptionCompleted.postValue(getPokemonDescriptionText(pokemonSpecies.flavor_text_entries))
                     }
@@ -71,14 +77,60 @@ class PokemonDetailViewModel : ViewModel() {
     }
 
     fun getEvolutionChain(chainURL: String) {
-        var id = getChainId(chainURL)
+
+        val id = getChainId(chainURL)
+
         pokeApiService.getPokemonEvolutionDetail(id)
             .enqueue(object: Callback<EvolutionChain> {
                 override fun onResponse(
                     call: Call<EvolutionChain>,
                     response: Response<EvolutionChain>
                 ) {
-                    response.body()?.let {pokemonEvolution ->
+                    response.body()?.let { pokemonEvolution ->
+
+                        // CODE to generate the proper evolution list
+                        val evolutionList: MutableList<ChainLink> = arrayListOf()
+                        var evolutionData: ChainLink = pokemonEvolution.chain
+                        var continueIteration = true
+
+                        do {
+                            val numberOfEvolutions: Int = evolutionData.evolves_to.size
+                            val hasMultipleEvolutions: Boolean = numberOfEvolutions > 1
+
+                            // add the evolution to the list
+                            evolutionList.add(ChainLink(
+                                    evolutionData.isBaby,
+                                    evolutionData.species,
+                                    evolutionData.evolutionDetails,
+                                    evolutionData.evolves_to
+                            ))
+
+                            // in case it has multiple evolutions iterate over each one and add to the list
+                            if (hasMultipleEvolutions) {
+                                for (i in 1..numberOfEvolutions) {
+                                    evolutionList.add(ChainLink(
+                                            evolutionData.evolves_to[i].isBaby,
+                                            evolutionData.evolves_to[i].species,
+                                            evolutionData.evolves_to[i].evolutionDetails,
+                                            evolutionData.evolves_to[i].evolves_to
+                                    ))
+                                }
+                            }
+
+                            // check if has more evolutions in the chain
+                            if (evolutionData.evolves_to.isNotEmpty())
+                            {
+                                // update the evolution data object
+                                evolutionData = evolutionData.evolves_to[0]
+                            }
+                            else {
+                                continueIteration = false
+                            }
+
+                        } while (continueIteration)
+
+                        //TODO: post the value to the fragment using the evolution list that we create manually
+                        //pokemonEvolutionList.postValue(evolutionList)
                         pokemonEvolutionChain.postValue(pokemonEvolution)
                     }
                 }
@@ -89,41 +141,49 @@ class PokemonDetailViewModel : ViewModel() {
     }
 
     fun getPokemonDescriptionText(pokemonSpeciesFlavor: List<PokemonSpeciesFlavorText>): String? {
+
         val descriptionArray: MutableList<String> = ArrayList()
         var description = ""
         var count = 0
-        for (i in pokemonSpeciesFlavor){
-            if(i.language.name == "es"){
+
+        for (i in pokemonSpeciesFlavor) {
+            if(i.language.name == "es") {
                 val isElementInArray = descriptionArray.contains(i.flavorText)
-                if(!isElementInArray){descriptionArray.add(i.flavorText)}
+
+                if (!isElementInArray) {
+                    descriptionArray.add(i.flavorText)
+                }
             }
         }
-        for (j in descriptionArray){
-            if(count < 2){ //show only two lines for the description
+
+        for (j in descriptionArray) {
+            if (count < 2) { //show only two lines for the description
                 description += j
                 count ++
             }
-
         }
+
         return description
     }
 
-      private fun getPokemonId(pokemonURL: String): Int {
+    private fun getPokemonId(pokemonURL: String): Int {
         var id = pokemonURL.replace(Constants.POKE_API_BASE_URL, "")
         id = id.replace("pokemon", "")
+
         return id.replace("/", "").toInt()
     }
 
     private fun getSpeciesId(speciesURL: String): Int {
         var id = speciesURL.replace(Constants.POKE_API_BASE_URL, "")
         id = id.replace("pokemon-species", "")
+
         return id.replace("/", "").toInt()
     }
 
     private fun getChainId(chainURL: String): Int {
         var id = chainURL.replace(Constants.POKE_API_BASE_URL, "")
         id = id.replace("evolution-chain", "")
+
         return id.replace("/", "").toInt()
     }
-
 }

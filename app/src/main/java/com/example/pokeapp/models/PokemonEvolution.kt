@@ -62,7 +62,6 @@ data class EvolutionDetail(
     val tradeSpecies: NamedApiResource? = null,
     val needsOverworldRain: Boolean = false,
     val turnUpsideDown: Boolean = false
-
 )
 
 data class EvolutionTrigger(
@@ -71,7 +70,6 @@ data class EvolutionTrigger(
     val names: List<Name>,
     val pokemonSpecies: List<NamedApiResource>
 )
-
 
 data class Name(
     val name: String,

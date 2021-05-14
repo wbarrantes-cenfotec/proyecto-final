@@ -34,7 +34,6 @@ class PokemonDetailFragment : Fragment(R.layout.fragment_pokemon_detail) {
 
     //region Functions
 
-
     override fun onCreateView(inflater: LayoutInflater,
                               container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -46,11 +45,11 @@ class PokemonDetailFragment : Fragment(R.layout.fragment_pokemon_detail) {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this).get(PokemonDetailViewModel::class.java)
-        var url = arguments.pokemon.pokemonUrl
+        val url = arguments.pokemon.pokemonUrl
         viewModel.getPokemonDetail(url)
 
         viewModel.pokemonDetail.observe(viewLifecycleOwner, Observer { pokemon ->
-            binding.textViewDirectionPokemonNameDetail.text = pokemon.name.toUpperCase()
+            binding.textViewDirectionPokemonNameDetail.text = pokemon.name.toUpperCase(Locale.ROOT)
 
             Glide.with(binding.imageViewDirectionPokemon.context)
                 .load(arguments.pokemon.imageURL)
@@ -67,11 +66,10 @@ class PokemonDetailFragment : Fragment(R.layout.fragment_pokemon_detail) {
 
             binding.textViewDirectionType.text = types
             //binding.textViewDirectionWeakness.text = pokemon.weight.toString()
-
         })
 
         viewModel.pokemonDetail.observe(viewLifecycleOwner, Observer { pokemon ->
-            binding.textViewDirectionPokemonNameDetail.text = pokemon.name.toUpperCase()
+            binding.textViewDirectionPokemonNameDetail.text = pokemon.name.toUpperCase(Locale.ROOT)
 
             Glide.with(binding.imageViewDirectionPokemon.context)
                 .load(arguments.pokemon.imageURL)

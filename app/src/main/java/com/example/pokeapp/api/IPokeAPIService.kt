@@ -15,14 +15,17 @@ interface IPokeAPIService {
     fun getPokemonList(
         @Query("limit") limit: Int
     ) : Call<PokemonResponse>
+
     @GET("pokemon/{id}")
     fun getPokemonDetail(
         @Path("id") id: Int
     ) : Call<PokemonDetail>
+
     @GET("evolution-chain/{id}")
     fun getPokemonEvolutionDetail(
         @Path("id") id: Int
     ) : Call<EvolutionChain>
+
     @GET("pokemon-species/{id}")
     fun getPokemonSpecies(
         @Path("id") id: Int
