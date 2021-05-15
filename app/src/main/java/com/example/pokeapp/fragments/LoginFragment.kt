@@ -1,17 +1,20 @@
 package com.example.pokeapp.fragments
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.pokeapp.R
 import com.example.pokeapp.databinding.FragmentLoginBinding
+import com.example.pokeapp.viewmodels.ILoginViewModelType
 import com.example.pokeapp.viewmodels.LoginViewModel
+import com.jakewharton.rxbinding2.view.RxView
+import com.jakewharton.rxbinding2.widget.RxTextView
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 
 class LoginFragment : Fragment(R.layout.fragment_login) {
 
@@ -19,11 +22,20 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: LoginViewModel by viewModels()
+    private lateinit var viewModel: ILoginViewModelType
+
+    private val disposables = CompositeDisposable()
 
     //endregion Variables
 
     //region Functions
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // initialize the view model
+        viewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -37,73 +49,88 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupListeners()
+        // to update the trainer name
+        disposables.add(
+            RxTextView.textChanges(binding.trainerEditText)
+                .skipInitialValue()
+                .map { it.toString() }
+                .subscribe {
+                    viewModel.inputs.trainerName.onNext(it)
+                }
+        )
 
-        viewModel.hasValidTrainer().observe(viewLifecycleOwner)  {
-            if (it > 0) {
-                // make the transition between the login to the main fragment
-                findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
-            }
-        }
+        // to show the error message on the trainer input text if the field is empty
+        disposables.add(
+            viewModel.outputs.trainerNameError
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    binding.trainerEditText.error = if (it) "Campo requerido!" else null
+                }
+        )
 
-        binding.loginButton.setOnClickListener {
+        // to enable/disable the login button
+        disposables.add(
+            viewModel.outputs.isButtonEnabled
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    binding.loginButton.isEnabled = it
+                }
+        )
 
-            // check if the login form is valid before to proceed
-            if (isValidForm()) {
-                // Create the new trainer
-                viewModel.createNewTrainer(binding.trainerEditText.text.toString())
+        // execute the logic on the login button click event
+        disposables.add(
+            RxView.clicks(binding.loginButton)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    viewModel.inputs.loginButtonClicked.onNext(Unit)
+                }
+        )
 
-                // make the transition between the login to the main fragment
-                findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
-            }
-        }
+        // when the trainer is created on the DB, then move to the next fragment
+        disposables.add(
+            viewModel.outputs.trainerCreated
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        if (it) {
+                            // make the transition between fragments
+                            this.goToMainFragment()
+                        }
+                    },
+                    {
+                        print(it.localizedMessage)
+                    }
+                )
+        )
+
+        // if we already have a signed trainer on the DB, then move to the next fragment
+        disposables.add(
+            viewModel.outputs.isTrainerSignedIn
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    {
+                        if (it) {
+                            // make the transition between fragments
+                            this.goToMainFragment()
+                        }
+                    },
+                    {
+                        print(it.localizedMessage)
+                    }
+                )
+        )
     }
 
-    private fun setupListeners() {
-        binding.trainerEditText.addTextChangedListener(TextFieldValidation(binding.trainerEditText))
-    }
-
-    private fun isValidForm(): Boolean = isValidTrainerName()
-
-    private fun isValidTrainerName(): Boolean {
-
-        if (binding.trainerEditText.text.toString().trim().isEmpty()) {
-            binding.trainerInputLayout.error = getString(R.string.required_field_text)
-            binding.trainerEditText.requestFocus()
-            return false
-        }
-        else {
-            binding.trainerInputLayout.isErrorEnabled = false
-        }
-
-        return true
+    private fun goToMainFragment() {
+        // make the transition between the login to the main fragment
+        findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-
+        disposables.clear()
         _binding = null
     }
 
     //endregion Functions
-
-    //region TextFieldValidation
-
-    inner class TextFieldValidation(private val view:View) : TextWatcher {
-
-        override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-        override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            when (view.id) {
-                R.id.trainerEditText -> {
-                    isValidTrainerName()
-                }
-            }
-        }
-
-        override fun afterTextChanged(s: Editable?) {}
-    }
-
-    //endregion TextFieldValidation
 }
