@@ -1,9 +1,9 @@
 package com.example.pokeapp.repositories
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import com.example.pokeapp.db.PokeAppDatabase
 import com.example.pokeapp.db.entities.Trainer
+import io.reactivex.Observable
 
 class TrainerRepository(context: Context) {
 
@@ -14,5 +14,5 @@ class TrainerRepository(context: Context) {
         database.getTrainerDAO().insertTrainer(trainer)
     }
 
-    fun getTotalTrainers(): LiveData<Int> = database.getTrainerDAO().getTotalTrainers()
+    fun getTotalTrainers(): Observable<Int> = database.getTrainerDAO().getTotalTrainers()
 }
