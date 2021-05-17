@@ -1,36 +1,47 @@
 package com.example.pokeapp.viewmodels
 
+import android.annotation.SuppressLint
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.pokeapp.api.IPokeAPIService
 import com.example.pokeapp.extensions.Constants
 import com.example.pokeapp.models.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.withContext
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.*
 import kotlin.collections.ArrayList
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
+
 
 class PokemonDetailViewModel : ViewModel() {
 
     val pokemonDetail = MutableLiveData<PokemonDetail>()
     var pokemonDescriptionCompleted = MutableLiveData<String>()
-    val pokemonEvolutionList = MutableLiveData<ArrayList<ArrayList<Pokemon>>>()
-    var arrayEvolutionSpecie : ArrayList<Pokemon> = arrayListOf()
+    var pokemonEvolutionList = MutableLiveData<List<Any>>()
 
     private var pokeApiService: IPokeAPIService
 
     init {
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
+
+        val client = OkHttpClient.Builder()
+        .addInterceptor(loggingInterceptor)
+        .build();
+
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.POKE_API_BASE_URL)
+            .client(client)
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
         pokeApiService = retrofit.create(IPokeAPIService::class.java)
@@ -83,42 +94,46 @@ class PokemonDetailViewModel : ViewModel() {
             })
     }
 
-    private fun getPokemonEvolutionSpecies(speciesURL: String) : ArrayList<Pokemon>{
 
-        val id = getSpeciesId(speciesURL)
+    @SuppressLint("CheckResult")
+    private fun getPokemonEvolutionSpecies(speciesIDs: ArrayList<Int>){
 
-        pokeApiService.getPokemonSpecies(id)
-            .enqueue(object: Callback<PokemonSpecies> {
-                override fun onResponse(
-                    call: Call<PokemonSpecies>,
-                    response: Response<PokemonSpecies>
-                ) {
-                    response.body()?.let { pokemonSpecies ->
-                        arrayEvolutionSpecie.add(
-                            Pokemon(
-                                pokemonSpecies.name,
-                                Constants.POKEMON_IMAGE_API_URL.replace("#ID#", pokemonSpecies.id.toString()),
-                                pokemonSpecies.varieties[0].pokemon.url
-                            )
-                        )
-                    }
-                }
+        val requests = ArrayList<Observable<PokemonSpecies>>()
+        for (specieID in speciesIDs) {
+            requests.add(pokeApiService.getPokemonSpeciesObservable(specieID))
+        }
+        Observable
+            .zip(requests) { PokemonEvolutionResults ->
+                // do something with those results and emit new event
+                //Any() // <-- Here we emit just new empty Object(), but you can emit anything
+                pokemonEvolutionList.postValue(PokemonEvolutionResults.toList())
+                Log.d("Result1: ",PokemonEvolutionResults.toString())
+            }
+            // Run on a background thread
+            .subscribeOn(Schedulers.io())
+            // Be notified on the main thread
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({
+                Log.d("Result2: ",it.toString())
+            }) {
+                //Do something on error completion of requests
+                Log.d("Error: ",it.toString())
 
-                override fun onFailure(call: Call<PokemonSpecies>, t: Throwable) {
-                }
-            })
-        return arrayEvolutionSpecie
+
+            }
+
     }
 
 
-    fun getEvolutions(evolutionChain: MutableList<ChainLink>) : ArrayList<ArrayList<Pokemon>>{
-        var evolutionsArray : ArrayList<Pokemon> = arrayListOf()
-        var evolutionsArrayResult : ArrayList<ArrayList<Pokemon>> = arrayListOf()
-        for (evolution in evolutionChain) {
-            evolutionsArray = getPokemonEvolutionSpecies(evolution.species.url)
-            evolutionsArrayResult.add(evolutionsArray)
+    fun getEvolutions(evolutionChain: MutableList<ChainLink>){
+
+        var speciedIDArray : ArrayList<Int> = arrayListOf()
+        var id = 0
+            for (evolution in evolutionChain) {
+                id = getSpeciesId(evolution.species.url)
+                speciedIDArray.add(id)
         }
-        return evolutionsArrayResult
+        getPokemonEvolutionSpecies(speciedIDArray)
     }
 
     fun getEvolutionChain(chainURL: String) {
@@ -180,7 +195,8 @@ class PokemonDetailViewModel : ViewModel() {
                         //pokemonEvolutionList.postValue(evolutionList)
                         //pokemonEvolutionChain.postValue(getEvolutions(evolutionList)!!)
 
-                        pokemonEvolutionList.postValue(getEvolutions(evolutionList))
+                        //pokemonEvolutionList.postValue(getEvolutions(evolutionList))
+                        getEvolutions(evolutionList)
 
 
                     }
