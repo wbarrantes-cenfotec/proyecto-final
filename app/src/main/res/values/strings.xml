@@ -8,14 +8,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="list_title">ESCOGE TU POKEMON</string>
-    <string name="nombre_pokemon"></string>
     <string name="pokemon_type_title">Tipo</string>
     <string name="pokemon_weakness_title">Debilidad</string>
-    <string name="pokemon_description_title"></string>
     <string name="pokemon_evolution_title">Evoluciones</string>
     <string name="sad_pokemon_content_description">Sad pokemon</string>
-    <string name="pokemon_types"></string>
     <string name="search_hint">Buscar</string>
     <string name="email_input_hint">Correo electrónico</string>
     <string name="loading_description_text">Por favor espere un momento...</string>
+    <string name="pokemon_image_description">Pokemon Image</string>
 </resources>
