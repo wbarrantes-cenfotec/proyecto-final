@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/login_blue" >
+    android:background="@color/login_blue">
 
     <ImageView
         android:id="@+id/imageView"
@@ -23,31 +22,57 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/trainerInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textColorHint="@color/white"
-        app:errorEnabled="true"
         app:boxBackgroundColor="@color/login_second_blue"
-        app:startIconTint="@color/white"
+        app:errorEnabled="true"
         app:hintTextColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
+        app:layout_constraintBottom_toTopOf="@+id/emailInputLayout"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/imageView"
         app:layout_constraintTop_toBottomOf="@+id/imageView"
         app:layout_constraintVertical_chainStyle="packed"
         app:startIconDrawable="@drawable/ic_baseline_person_24"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        app:startIconTint="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/trainerEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/white"
             android:hint="@string/trainer_input_hint"
+            android:imeOptions="actionNext"
             android:inputType="textPersonName"
-            android:imeOptions="actionDone" />
+            android:textColor="@color/white" />
 
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/white"
+        app:hintTextColor="@color/white"
+        app:boxBackgroundColor="@color/login_second_blue"
+        app:errorEnabled="true"
+        app:layout_constraintBottom_toTopOf="@+id/radioGroup"
+        app:layout_constraintEnd_toEndOf="@+id/trainerInputLayout"
+        app:layout_constraintStart_toStartOf="@+id/trainerInputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/trainerInputLayout"
+        app:startIconDrawable="@drawable/ic_baseline_person_24"
+        app:startIconTint="@color/white">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/email_input_hint"
+            android:imeOptions="actionDone"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/white"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <RadioGroup
@@ -59,7 +84,7 @@
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="@+id/imageView"
-        app:layout_constraintTop_toBottomOf="@+id/trainerInputLayout">
+        app:layout_constraintTop_toBottomOf="@+id/emailInputLayout">
 
         <RadioButton
             android:id="@+id/menRadioButton"
@@ -67,7 +92,7 @@
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="@string/men_text"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
 
         <RadioButton
             android:id="@+id/femaleRadioButton"
@@ -75,7 +100,7 @@
             android:layout_height="wrap_content"
             android:checked="false"
             android:text="@string/female_text"
-            android:textColor="@color/white"/>
+            android:textColor="@color/white" />
     </RadioGroup>
 
     <Button
@@ -84,10 +109,8 @@
         android:layout_height="60dp"
         android:layout_marginTop="32dp"
         android:layout_weight="1"
-        android:text="@string/enter_button"
-        android:backgroundTint="@color/custom_yellow"
-        android:textColor="@color/login_blue"
         android:enabled="false"
+        android:text="@string/enter_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintHorizontal_bias="0.5"
@@ -99,10 +122,10 @@
         style="?android:attr/progressBarStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="invisible"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

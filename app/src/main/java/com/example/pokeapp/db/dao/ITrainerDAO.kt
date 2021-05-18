@@ -15,7 +15,7 @@ interface ITrainerDAO {
     @Insert
     suspend fun insertTrainer(trainer: Trainer)
 
-    @Query("SELECT COUNT(trainer_name) FROM Trainer")
+    @Query("SELECT COUNT(identifier) FROM Trainer")
     fun getTotalTrainers(): Observable<Int>
 
 }

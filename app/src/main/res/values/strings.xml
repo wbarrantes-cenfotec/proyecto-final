@@ -15,4 +15,5 @@
     <string name="pokemon_evolution_title">Evoluciones</string>
     <string name="sad_pokemon_content_description">Sad pokemon</string>
     <string name="pokemon_types"></string>
+    <string name="email_input_hint">Correo electrónico</string>
 </resources>

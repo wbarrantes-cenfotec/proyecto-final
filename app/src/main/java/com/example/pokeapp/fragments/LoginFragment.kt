@@ -12,6 +12,7 @@ import com.example.pokeapp.databinding.FragmentLoginBinding
 import com.example.pokeapp.viewmodels.ILoginViewModelType
 import com.example.pokeapp.viewmodels.LoginViewModel
 import com.jakewharton.rxbinding2.view.RxView
+import com.jakewharton.rxbinding2.widget.RxRadioGroup
 import com.jakewharton.rxbinding2.widget.RxTextView
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -55,7 +56,30 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                 .skipInitialValue()
                 .map { it.toString() }
                 .subscribe {
-                    viewModel.inputs.trainerName.onNext(it)
+                    viewModel.inputs.name.onNext(it)
+                }
+        )
+
+        // to update the trainer email
+        disposables.add(
+            RxTextView.textChanges(binding.emailEditText)
+                .skipInitialValue()
+                .map { it.toString() }
+                .subscribe {
+                    viewModel.inputs.email.onNext(it)
+                }
+        )
+
+        disposables.add(
+            RxRadioGroup.checkedChanges(binding.radioGroup)
+                .map {
+                    if (it == binding.menRadioButton.id)
+                        getString(R.string.men_text)
+                    else
+                        getString(R.string.female_text)
+                }
+                .subscribe {
+                    viewModel.inputs.gender.onNext(it)
                 }
         )
 
@@ -64,7 +88,16 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             viewModel.outputs.trainerNameError
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
-                    binding.trainerEditText.error = if (it) "Campo requerido!" else null
+                    binding.trainerEditText.error = if (it) getString(R.string.required_field_text) else null
+                }
+        )
+
+        // to show the error message on the email input text if the field is empty
+        disposables.add(
+            viewModel.outputs.trainerEmailError
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    binding.emailEditText.error = if (it) getString(R.string.required_field_text) else null
                 }
         )
 

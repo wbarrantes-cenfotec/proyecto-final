@@ -6,7 +6,9 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class Trainer (
-    @ColumnInfo(name = "trainer_name") val trainerName: String
+    @ColumnInfo val name: String,
+    @ColumnInfo val email: String,
+    @ColumnInfo val gender: String
 ) {
     @PrimaryKey(autoGenerate = true) var identifier: Int = 0
 }

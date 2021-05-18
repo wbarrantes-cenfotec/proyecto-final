@@ -14,7 +14,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import kotlin.collections.ArrayList
-import io.reactivex.Observable;
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
@@ -35,7 +35,7 @@ class PokemonDetailViewModel : ViewModel() {
 
         val client = OkHttpClient.Builder()
         .addInterceptor(loggingInterceptor)
-        .build();
+        .build()
 
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.POKE_API_BASE_URL)
@@ -197,8 +197,6 @@ class PokemonDetailViewModel : ViewModel() {
 
                         //pokemonEvolutionList.postValue(getEvolutions(evolutionList))
                         getEvolutions(evolutionList)
-
-
                     }
                 }
 
