@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
@@ -15,7 +14,6 @@ import com.example.pokeapp.R
 import com.example.pokeapp.adapters.SliderImageAdapter
 import com.example.pokeapp.extensions.Constants
 import com.example.pokeapp.databinding.FragmentPokemonDetailBinding
-import com.example.pokeapp.models.ChainLink
 import com.example.pokeapp.models.PokemonSpecies
 import com.example.pokeapp.viewmodels.PokemonDetailViewModel
 import com.smarteist.autoimageslider.SliderView
@@ -98,13 +96,19 @@ class PokemonDetailFragment : Fragment(R.layout.fragment_pokemon_detail) {
         viewModel.pokemonEvolutionList.observe(viewLifecycleOwner, Observer { pokemonEvolutionList ->
             val imageSlider = binding.imageSlider
             val imageList: ArrayList<String> = ArrayList()
-            for (i in 1..pokemonEvolutionList[0].size) {
-                val pokemonEvolutionImageUrl = pokemonEvolutionList[0][i].imageURL.toString()
+            var id = 0
+            var pokemonEvolutionImageUrl = ""
+            Log.d("Result:", pokemonEvolutionList.toString())
+            for (element in pokemonEvolutionList) {
+                id = (element as PokemonSpecies).id
+                pokemonEvolutionImageUrl = Constants.POKEMON_IMAGE_API_URL.replace("#ID#", id.toString())
                 imageList.add(pokemonEvolutionImageUrl)
             }
             // Set images to the ImageSlider
             setImageInSlider(imageList, imageSlider)
         })
+
+
 
     }
     override fun onDestroyView() {

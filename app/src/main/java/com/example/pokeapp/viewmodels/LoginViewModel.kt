@@ -13,15 +13,19 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 interface ILoginViewModelInputs {
-    val trainerName: Observer<String>
+    val name: Observer<String>
+    val email: Observer<String>
+    val gender: Observer<String>
     val loginButtonClicked: Observer<Unit>
 }
 
 interface ILoginViewModelOutputs {
     val isButtonEnabled: Observable<Boolean>
     val trainerNameError: Observable<Boolean>
-    val isTrainerSignedIn: Observable<Boolean>
+    val trainerEmailError: Observable<Boolean>
     val trainerCreated: Observable<Boolean>
+    val isTrainerSignedIn: Observable<Boolean>
+    val showLoading: Observable<Boolean>
 }
 
 interface ILoginViewModelType {
@@ -41,30 +45,38 @@ class LoginViewModel(application: Application) : AndroidViewModel(application),
     override val outputs: ILoginViewModelOutputs = this
 
     // inputs
-    override val trainerName: BehaviorSubject<String> = BehaviorSubject.create<String>()
-    override val loginButtonClicked: PublishSubject<Unit> = PublishSubject.create<Unit>()
+    override val name = BehaviorSubject.create<String>()
+    override val email = BehaviorSubject.create<String>()
+    override val gender = BehaviorSubject.create<String>()
+    override val loginButtonClicked = PublishSubject.create<Unit>()
 
     // outputs
-    override val isButtonEnabled: Observable<Boolean>
-    override val trainerNameError: Observable<Boolean>
-    override val isTrainerSignedIn: Observable<Boolean>
+    override val isButtonEnabled: Observable<Boolean> = Observable.combineLatest(name, email) { n, e -> n.isNotEmpty() && e.isNotEmpty() }
+    override val trainerNameError: Observable<Boolean> = name.map { it.isEmpty() }
+    override val trainerEmailError: Observable<Boolean> = email.map { it.isEmpty() }
     override val trainerCreated: Observable<Boolean>
+    override val isTrainerSignedIn: Observable<Boolean>
+    override val showLoading: Observable<Boolean>
 
     // endregion Variables
 
     // region Functions
 
     init {
-        isButtonEnabled = trainerName.map { it.isNotEmpty() }
-
-        trainerNameError = trainerName.map { it.isEmpty() }
-
         trainerCreated = loginButtonClicked
-            .withLatestFrom(trainerName, { e, n -> Trainer(n) })
+            .withLatestFrom(name, email, gender) { _, n, e, g ->
+                Trainer(
+                    name = n,
+                    email = e,
+                    gender = g
+                )
+            }
             .doOnNext { createNewTrainer( it ) }
             .map { true }
 
         isTrainerSignedIn = hasValidTrainer().map { it > 0 }
+
+        showLoading = isTrainerSignedIn.map { it }
     }
 
     private fun createNewTrainer(trainer: Trainer) {
@@ -73,7 +85,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application),
         }
     }
 
-    fun hasValidTrainer(): Observable<Int> {
+    private fun hasValidTrainer(): Observable<Int> {
         return trainerRepository.getTotalTrainers()
     }
 

@@ -16,4 +16,6 @@
     <string name="sad_pokemon_content_description">Sad pokemon</string>
     <string name="pokemon_types"></string>
     <string name="search_hint">Buscar</string>
+    <string name="email_input_hint">Correo electrónico</string>
+    <string name="loading_description_text">Por favor espere un momento...</string>
 </resources>

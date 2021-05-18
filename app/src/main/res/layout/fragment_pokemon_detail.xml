@@ -93,6 +93,7 @@
                 android:id="@+id/imageSlider"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+
                 app:sliderAnimationDuration="5000"
                 app:sliderAutoCycleEnabled="false"
                 app:sliderIndicatorAnimationDuration="5000"
@@ -103,12 +104,6 @@
                 app:sliderIndicatorUnselectedColor="#FFF"
                 app:sliderScrollTimeInSec="5"
                 app:sliderStartAutoCycle="false" />
-
-            <TextView
-                android:id="@+id/textViewDirectionEvolution"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="PokemonEvolutionName" />
 
 
         </LinearLayout>

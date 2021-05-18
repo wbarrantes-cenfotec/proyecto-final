@@ -28,7 +28,10 @@ class SliderImageAdapter() :  SliderViewAdapter<SliderImageAdapter.VH>() {
 
     override fun onBindViewHolder(viewHolder: VH, position: Int) {
         //load image into view
-        Picasso.get().load(mSliderItems[position]).fit().into(viewHolder.imageView)
+        Picasso.get().load(mSliderItems[position])
+             .fit()
+            .centerInside()
+            .into(viewHolder.imageView)
     }
 
     override fun getCount(): Int {

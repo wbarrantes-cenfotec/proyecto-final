@@ -5,6 +5,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
+import io.reactivex.Observable
 
 interface IPokeAPIService {
 
@@ -32,4 +33,9 @@ interface IPokeAPIService {
     fun getPokemonSpecies(
         @Path("id") id: Int
     ) : Call<PokemonSpecies>
+
+    @GET("pokemon-species/{id}")
+    fun getPokemonSpeciesObservable(
+        @Path("id") id: Int
+    ) : Observable<PokemonSpecies>
 }
