@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.pokeapp.R
 import com.example.pokeapp.databinding.FragmentLoginBinding
+import com.example.pokeapp.extensions.mapToVisibility
 import com.example.pokeapp.viewmodels.ILoginViewModelType
 import com.example.pokeapp.viewmodels.LoginViewModel
 import com.jakewharton.rxbinding2.view.RxView
@@ -115,6 +116,8 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
             RxView.clicks(binding.loginButton)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
+                    binding.customProgressBar.root.visibility = View.VISIBLE
+
                     viewModel.inputs.loginButtonClicked.onNext(Unit)
                 }
         )
@@ -151,6 +154,14 @@ class LoginFragment : Fragment(R.layout.fragment_login) {
                         print(it.localizedMessage)
                     }
                 )
+        )
+
+        disposables.add(
+            viewModel.outputs.showLoading
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+                    binding.customProgressBar.root.visibility = it.mapToVisibility()
+                }
         )
     }
 

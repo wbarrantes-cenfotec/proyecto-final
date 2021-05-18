@@ -25,6 +25,7 @@ interface ILoginViewModelOutputs {
     val trainerEmailError: Observable<Boolean>
     val trainerCreated: Observable<Boolean>
     val isTrainerSignedIn: Observable<Boolean>
+    val showLoading: Observable<Boolean>
 }
 
 interface ILoginViewModelType {
@@ -50,11 +51,12 @@ class LoginViewModel(application: Application) : AndroidViewModel(application),
     override val loginButtonClicked = PublishSubject.create<Unit>()
 
     // outputs
-    override val isButtonEnabled: Observable<Boolean> = Observable.combineLatest(name, email, { n, e -> n.isNotEmpty() && e.isNotEmpty() })
+    override val isButtonEnabled: Observable<Boolean> = Observable.combineLatest(name, email) { n, e -> n.isNotEmpty() && e.isNotEmpty() }
     override val trainerNameError: Observable<Boolean> = name.map { it.isEmpty() }
     override val trainerEmailError: Observable<Boolean> = email.map { it.isEmpty() }
     override val trainerCreated: Observable<Boolean>
     override val isTrainerSignedIn: Observable<Boolean>
+    override val showLoading: Observable<Boolean>
 
     // endregion Variables
 
@@ -62,11 +64,19 @@ class LoginViewModel(application: Application) : AndroidViewModel(application),
 
     init {
         trainerCreated = loginButtonClicked
-            .withLatestFrom(name, email, gender, { _, n, e, g -> Trainer(name = n, email = e, gender = g) })
+            .withLatestFrom(name, email, gender) { _, n, e, g ->
+                Trainer(
+                    name = n,
+                    email = e,
+                    gender = g
+                )
+            }
             .doOnNext { createNewTrainer( it ) }
             .map { true }
 
         isTrainerSignedIn = hasValidTrainer().map { it > 0 }
+
+        showLoading = isTrainerSignedIn.map { it }
     }
 
     private fun createNewTrainer(trainer: Trainer) {

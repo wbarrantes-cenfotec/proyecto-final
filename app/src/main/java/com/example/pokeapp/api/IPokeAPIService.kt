@@ -1,9 +1,6 @@
 package com.example.pokeapp.api
 
-import com.example.pokeapp.models.EvolutionChain
-import com.example.pokeapp.models.PokemonResponse
-import com.example.pokeapp.models.PokemonDetail
-import com.example.pokeapp.models.PokemonSpecies
+import com.example.pokeapp.models.*
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -16,6 +13,11 @@ interface IPokeAPIService {
     fun getPokemonList(
         @Query("limit") limit: Int
     ) : Call<PokemonResponse>
+
+    @GET("pokemon-form/{id}")
+    fun searchPokemon(
+        @Query("id") name: Int
+    ) : Call<PokemonSearch>
 
     @GET("pokemon/{id}")
     fun getPokemonDetail(
