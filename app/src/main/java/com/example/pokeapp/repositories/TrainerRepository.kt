@@ -15,4 +15,6 @@ class TrainerRepository(context: Context) {
     }
 
     fun getTotalTrainers(): Observable<Int> = database.getTrainerDAO().getTotalTrainers()
+
+    fun getTrainer(): Observable<Trainer> = database.getTrainerDAO().getTrainer()
 }

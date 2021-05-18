@@ -9,8 +9,8 @@ import io.reactivex.Observable
 @Dao
 interface ITrainerDAO {
 
-    @Query("SELECT * FROM Trainer")
-    fun getTrainer(): Observable<List<Trainer>>
+    @Query("SELECT * FROM Trainer LIMIT 1")
+    fun getTrainer(): Observable<Trainer>
 
     @Insert
     suspend fun insertTrainer(trainer: Trainer)
