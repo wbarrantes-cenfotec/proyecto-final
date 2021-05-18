@@ -11,6 +11,8 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.pokeapp.R
+import com.example.pokeapp.adapters.PokemonAdapter
+import com.example.pokeapp.adapters.PokemonEvolutionAdapter
 import com.example.pokeapp.adapters.SliderImageAdapter
 import com.example.pokeapp.extensions.Constants
 import com.example.pokeapp.databinding.FragmentPokemonDetailBinding
@@ -30,6 +32,7 @@ class PokemonDetailFragment : Fragment(R.layout.fragment_pokemon_detail) {
     private val arguments: PokemonDetailFragmentArgs by navArgs()
 
     lateinit var viewModel: PokemonDetailViewModel
+    private val adapter = PokemonEvolutionAdapter()
 
     //endregion Variables
 
@@ -93,22 +96,13 @@ class PokemonDetailFragment : Fragment(R.layout.fragment_pokemon_detail) {
             binding.textViewDirectionPokemonDescription.text = pokemonDescription.toString()
         })
 
+        binding.pokemonEvolutionRecyclerView.adapter = adapter
+
         viewModel.pokemonEvolutionList.observe(viewLifecycleOwner, Observer { pokemonEvolutionList ->
-            val imageSlider = binding.imageSlider
-            val imageList: ArrayList<String> = ArrayList()
-            var id = 0
-            var pokemonEvolutionImageUrl = ""
-            Log.d("Result:", pokemonEvolutionList.toString())
-            for (element in pokemonEvolutionList) {
-                id = (element as PokemonSpecies).id
-                pokemonEvolutionImageUrl = Constants.POKEMON_IMAGE_API_URL.replace("#ID#", id.toString())
-                imageList.add(pokemonEvolutionImageUrl)
-            }
-            // Set images to the ImageSlider
-            setImageInSlider(imageList, imageSlider)
+
+            adapter.pokemonEvolutions = pokemonEvolutionList
+
         })
-
-
 
     }
     override fun onDestroyView() {

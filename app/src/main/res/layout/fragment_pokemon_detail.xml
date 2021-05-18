@@ -89,27 +89,42 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <com.smarteist.autoimageslider.SliderView
-                android:id="@+id/imageSlider"
+            <!--  <com.smarteist.autoimageslider.SliderView
+                  android:id="@+id/imageSlider"
+                  android:layout_width="match_parent"
+                  android:layout_height="200dp"
+
+                  app:sliderAnimationDuration="5000"
+                  app:sliderAutoCycleEnabled="false"
+                  app:sliderIndicatorAnimationDuration="5000"
+                  app:sliderIndicatorGravity="center_horizontal|bottom"
+                  app:sliderAutoCycleDirection="right"
+                  app:sliderIndicatorOrientation="horizontal"
+                  app:sliderIndicatorSelectedColor="#5A5A5A"
+                  app:sliderIndicatorUnselectedColor="#FFF"
+                  app:sliderScrollTimeInSec="5"
+                  app:sliderStartAutoCycle="false" />-->
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/pokemonEvolutionRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-
-                app:sliderAnimationDuration="5000"
-                app:sliderAutoCycleEnabled="false"
-                app:sliderIndicatorAnimationDuration="5000"
-                app:sliderIndicatorGravity="center_horizontal|bottom"
-                app:sliderAutoCycleDirection="right"
-                app:sliderIndicatorOrientation="horizontal"
-                app:sliderIndicatorSelectedColor="#5A5A5A"
-                app:sliderIndicatorUnselectedColor="#FFF"
-                app:sliderScrollTimeInSec="5"
-                app:sliderStartAutoCycle="false" />
-
+                android:scrollbars="vertical"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintVertical_bias="0.0"
+                app:layout_constraintTop_toBottomOf="@id/textViewEvolutions"
+                tools:itemCount="3"
+                tools:listitem="@layout/evolution_cell" />
 
         </LinearLayout>
 
 
-</com.google.android.material.card.MaterialCardView>
+    </com.google.android.material.card.MaterialCardView>
 
     <TextView
         android:id="@+id/textViewEvolutions"
