@@ -127,7 +127,7 @@ class PokemonDetailViewModel : ViewModel() {
 
     fun getEvolutions(evolutionChain: MutableList<ChainLink>){
 
-        var speciedIDArray : ArrayList<Int> = arrayListOf()
+        val speciedIDArray : ArrayList<Int> = arrayListOf()
         var id = 0
             for (evolution in evolutionChain) {
                 id = getSpeciesId(evolution.species.url)
@@ -190,11 +190,6 @@ class PokemonDetailViewModel : ViewModel() {
 
                         } while (continueIteration)
 
-                        //TODO: post the value to the fragment using the evolution list that we create manually
-                        //pokemonEvolutionList.postValue(evolutionList)
-                        //pokemonEvolutionChain.postValue(getEvolutions(evolutionList)!!)
-
-                        //pokemonEvolutionList.postValue(getEvolutions(evolutionList))
                         getEvolutions(evolutionList)
                     }
                 }

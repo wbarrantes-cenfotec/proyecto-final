@@ -30,12 +30,15 @@ class PokemonAdapter : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() 
             // set the pokemon name
             binding.textViewPokemonName.text = pokemon.name.toUpperCase(Locale.ROOT)
 
+            // set the pokemon id
+            binding.textViewPokemonId.text = "#${pokemon.getPokemonId().toString()}"
+
             // set the click event listener
             binding.root.setOnClickListener {
 
                 val action = PokemonListFragmentDirections
                     .actionPokemonListFragment2ToPokemonDetailFragment2(
-                        Pokemon(pokemon.name.toUpperCase(),
+                        Pokemon(pokemon.name.toUpperCase(Locale.ROOT),
                             pokemonImageUrl,
                             pokemon.url
                         )
