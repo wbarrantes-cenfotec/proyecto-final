@@ -19,4 +19,7 @@ interface IFavoriteDAO{
 
     @Query("DELETE FROM favorite WHERE fav_name=:keyword")
     fun delFavorite(keyword: String)
+
+    @Query("SELECT COUNT(identifier) FROM favorite")
+    fun getTotalFavorites(): Observable<Int>
 }

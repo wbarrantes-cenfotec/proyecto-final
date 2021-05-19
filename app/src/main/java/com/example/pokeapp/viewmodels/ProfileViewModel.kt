@@ -2,15 +2,12 @@ package com.example.pokeapp.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.pokeapp.db.entities.Trainer
+import com.example.pokeapp.repositories.FavoriteRepository
 import com.example.pokeapp.repositories.TrainerRepository
 import io.reactivex.Observable
 import io.reactivex.Observer
-import io.reactivex.subjects.BehaviorSubject
 import io.reactivex.subjects.PublishSubject
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 
 interface IProfileViewModelInputs {
     val favoriteButtonClicked: Observer<Unit>
@@ -18,6 +15,7 @@ interface IProfileViewModelInputs {
 
 interface IProfileViewModelOutputs {
     val trainer: Observable<Trainer>
+    val totalFavorites: Observable<Int>
 }
 
 interface IProfileViewModelType {
@@ -33,6 +31,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     // region Variables
 
     private var trainerRepository: TrainerRepository = TrainerRepository(application.applicationContext)
+    private var favoritesRepository: FavoriteRepository = FavoriteRepository(application.applicationContext)
     override val inputs: IProfileViewModelInputs = this
     override val outputs: IProfileViewModelOutputs = this
 
@@ -40,6 +39,7 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
     override val favoriteButtonClicked = PublishSubject.create<Unit>()
 
     override val trainer: Observable<Trainer>
+    override val totalFavorites: Observable<Int>
 
     // endregion Variables
 
@@ -47,10 +47,15 @@ class ProfileViewModel(application: Application) : AndroidViewModel(application)
 
     init {
         trainer = getCurrentTrainer()
+        totalFavorites = getTotalPokemonFavorites()
     }
 
     private fun getCurrentTrainer(): Observable<Trainer> {
         return trainerRepository.getTrainer()
+    }
+
+    private fun getTotalPokemonFavorites(): Observable<Int> {
+        return favoritesRepository.getTotalFavorites()
     }
 
     // endregion Functions

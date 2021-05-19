@@ -23,4 +23,5 @@
     <string name="total_favorites_text">Favoritos</string>
     <string name="goto_favorites_text">Ver Favoritos</string>
     <string name="favorites_title">MIS FAVORITOS</string>
+    <string name="trainer_profile_pic_description">trainer profile pic</string>
 </resources>

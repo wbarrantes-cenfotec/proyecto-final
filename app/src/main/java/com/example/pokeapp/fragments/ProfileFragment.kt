@@ -67,6 +67,15 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                     }
                 }
         )
+
+        disposables.add(
+            viewModel.outputs.totalFavorites
+                .observeOn(AndroidSchedulers.mainThread())
+                .map { it.toString() }
+                .subscribe {
+                    binding.totalFavoritesTextView.text = it
+                }
+        )
     }
 
     override fun onDestroyView() {
