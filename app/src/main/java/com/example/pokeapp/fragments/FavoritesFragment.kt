@@ -15,7 +15,7 @@ import io.reactivex.schedulers.Schedulers
 class FavoritesFragment : Fragment() {
 
     private var _binding: FragmentFavoritesBinding? = null
-    private val binding: FragmentFavoritesBinding get() = _binding!!
+    private val binding get() = _binding!!
 
     private val disposable = io.reactivex.disposables.CompositeDisposable()
 

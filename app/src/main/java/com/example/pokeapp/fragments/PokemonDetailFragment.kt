@@ -120,12 +120,11 @@ class PokemonDetailFragment : Fragment(R.layout.fragment_pokemon_detail) {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe{
                     isFavorite = it
-                    if ( it == 0 ){
+                    if (it == 0) {
                         binding.btnAddFavorites.setImageResource(R.drawable.ic_baseline_favorite_border_24)
-                    }else{
+                    } else {
                         binding.btnAddFavorites.setImageResource(R.drawable.ic_baseline_favorite_24)
                     }
-
                 }
         )
 
@@ -154,7 +153,7 @@ class PokemonDetailFragment : Fragment(R.layout.fragment_pokemon_detail) {
                 ).show()
                 isFavorite = 0
             }
-            //disposable.clear()
+
         }
 
 
@@ -164,7 +163,7 @@ class PokemonDetailFragment : Fragment(R.layout.fragment_pokemon_detail) {
     }
     override fun onDestroyView() {
         super.onDestroyView()
-
+        disposable.clear()
         _binding = null
     }
 
