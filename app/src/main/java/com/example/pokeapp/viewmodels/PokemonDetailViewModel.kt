@@ -127,7 +127,7 @@ class PokemonDetailViewModel : ViewModel() {
 
     fun getEvolutions(evolutionChain: MutableList<ChainLink>){
 
-        var speciedIDArray : ArrayList<Int> = arrayListOf()
+        val speciedIDArray : ArrayList<Int> = arrayListOf()
         var id = 0
             for (evolution in evolutionChain) {
                 id = getSpeciesId(evolution.species.url)
@@ -167,14 +167,13 @@ class PokemonDetailViewModel : ViewModel() {
 
                             // in case it has multiple evolutions iterate over each one and add to the list
                             if (hasMultipleEvolutions) {
-                                for (i in 1..numberOfEvolutions) {
+                                for (i in 1 until numberOfEvolutions) {
 
                                     evolutionList.add(ChainLink(
                                             evolutionData.evolves_to[i].isBaby,
                                             evolutionData.evolves_to[i].species,
                                             evolutionData.evolves_to[i].evolutionDetails,
-                                            evolutionData.evolves_to[i].evolves_to
-
+                                            emptyList()
                                     ))
                                 }
                             }
@@ -191,11 +190,6 @@ class PokemonDetailViewModel : ViewModel() {
 
                         } while (continueIteration)
 
-                        //TODO: post the value to the fragment using the evolution list that we create manually
-                        //pokemonEvolutionList.postValue(evolutionList)
-                        //pokemonEvolutionChain.postValue(getEvolutions(evolutionList)!!)
-
-                        //pokemonEvolutionList.postValue(getEvolutions(evolutionList))
                         getEvolutions(evolutionList)
                     }
                 }
@@ -229,7 +223,7 @@ class PokemonDetailViewModel : ViewModel() {
             }
         }
 
-        return description
+        return description.replace("\n", " ")
     }
 
     private fun getPokemonId(pokemonURL: String): Int {

@@ -63,6 +63,7 @@ class PokemonDetailFragment : Fragment(R.layout.fragment_pokemon_detail) {
 
             Glide.with(binding.imageViewDirectionPokemon.context)
                 .load(arguments.pokemon.imageURL)
+                .placeholder(R.drawable.placeholder)
                 .circleCrop()
                 .into(binding.imageViewDirectionPokemon)
 
@@ -83,6 +84,7 @@ class PokemonDetailFragment : Fragment(R.layout.fragment_pokemon_detail) {
 
             Glide.with(binding.imageViewDirectionPokemon.context)
                 .load(arguments.pokemon.imageURL)
+                .placeholder(R.drawable.placeholder)
                 .circleCrop()
                 .into(binding.imageViewDirectionPokemon)
 

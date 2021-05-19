@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.pokeapp.R
 import com.example.pokeapp.databinding.EvolutionCellBinding
 import com.example.pokeapp.models.PokemonSpecies
 import java.util.*
@@ -38,9 +39,13 @@ class PokemonEvolutionAdapter : RecyclerView.Adapter<PokemonEvolutionAdapter.Pok
                 // set the pokemon name
                 binding.textViewPokemonEvolutionName.text = element.name.toUpperCase(Locale.ROOT)
 
+                // set the pokemon id
+                binding.textViewPokemonId.text = "#${id}"
+
                 // load the pokemon image
                 Glide.with(binding.root)
                     .load(pokemonEvolutionImageUrl)
+                    .placeholder(R.drawable.placeholder)
                     .circleCrop()
                     .into(binding.imageViewPokemonEvolutionImage)
 
@@ -48,7 +53,7 @@ class PokemonEvolutionAdapter : RecyclerView.Adapter<PokemonEvolutionAdapter.Pok
                 binding.root.setOnClickListener {
                     val action = PokemonDetailFragmentDirections
                         .actionPokemonDetailFragment2Self(
-                            Pokemon(element.name.toUpperCase(),
+                            Pokemon(element.name.toUpperCase(Locale.ROOT),
                                 pokemonEvolutionImageUrl,
                                 pokemonEvolutionBaseURL
                             )

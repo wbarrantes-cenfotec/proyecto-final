@@ -24,4 +24,6 @@
     <string name="add_favorites_button">Agregar a Favoritos</string>
     <string name="added_to_favs">Agregado a Favoritos</string>
     <string name="removed_from_favs">Eliminado de Favoritos</string>
+    <string name="total_favorites_text">Favoritos</string>
+    <string name="goto_favorites_text">Ver Favoritos</string>
 </resources>

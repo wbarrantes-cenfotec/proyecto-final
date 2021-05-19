@@ -53,9 +53,18 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             viewModel.outputs.trainer
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
+                    // update the trainer data
                     binding.nameTextView.text = it.name
                     binding.emailTextView.text = it.email
                     binding.genderTextView.text = it.gender
+
+                    // set the trainer profile image
+                    if (it.gender == getString(R.string.men_text)) {
+                        binding.trainerImageView.setImageResource(R.drawable.male_trainer)
+                    }
+                    else {
+                        binding.trainerImageView.setImageResource(R.drawable.female_trainer)
+                    }
                 }
         )
     }
