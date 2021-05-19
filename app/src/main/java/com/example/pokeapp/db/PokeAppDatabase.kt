@@ -4,13 +4,16 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.pokeapp.db.dao.IFavoriteDAO
 import com.example.pokeapp.db.dao.ITrainerDAO
+import com.example.pokeapp.db.entities.Favorite
 import com.example.pokeapp.db.entities.Trainer
 
-@Database(entities = arrayOf(Trainer::class), version = 1)
-abstract class PokeAppDatabase : RoomDatabase() {
+@Database(entities = arrayOf(Trainer::class,Favorite::class), version = 1)
+abstract class  PokeAppDatabase : RoomDatabase() {
 
     abstract fun getTrainerDAO(): ITrainerDAO
+    abstract fun getFavoriteDAO(): IFavoriteDAO
 
     companion object {
         @Volatile

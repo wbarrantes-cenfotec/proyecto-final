@@ -1,26 +1,23 @@
 package com.example.pokeapp.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.example.pokeapp.R
-import com.example.pokeapp.adapters.PokemonAdapter
 import com.example.pokeapp.adapters.PokemonEvolutionAdapter
 import com.example.pokeapp.adapters.SliderImageAdapter
-import com.example.pokeapp.extensions.Constants
 import com.example.pokeapp.databinding.FragmentPokemonDetailBinding
-import com.example.pokeapp.models.PokemonSpecies
+import com.example.pokeapp.viewmodels.FavoriteViewModel
 import com.example.pokeapp.viewmodels.PokemonDetailViewModel
 import com.smarteist.autoimageslider.SliderView
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class PokemonDetailFragment : Fragment(R.layout.fragment_pokemon_detail) {
@@ -32,6 +29,8 @@ class PokemonDetailFragment : Fragment(R.layout.fragment_pokemon_detail) {
     private val arguments: PokemonDetailFragmentArgs by navArgs()
 
     lateinit var viewModel: PokemonDetailViewModel
+    val favViewModel : FavoriteViewModel by viewModels()
+
     private val adapter = PokemonEvolutionAdapter()
 
     //endregion Variables
@@ -103,6 +102,10 @@ class PokemonDetailFragment : Fragment(R.layout.fragment_pokemon_detail) {
             adapter.pokemonEvolutions = pokemonEvolutionList
 
         })
+        binding.btnAddFavorites.setOnClickListener{
+            favViewModel.createFavorite(arguments.pokemon.name,arguments.pokemon.pokemonUrl,arguments.pokemon.imageURL)
+        }
+
 
     }
     override fun onDestroyView() {

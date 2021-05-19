@@ -12,7 +12,7 @@
         android:id="@+id/textViewDirectionPokemonNameDetail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:text="@string/nombre_pokemon"
         android:textAppearance="@style/TextAppearance.AppCompat.Title"
         android:textSize="30sp"
@@ -57,12 +57,11 @@
         android:id="@+id/textViewDirectionPokemonDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="10dp"
         android:text="@string/pokemon_description_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewDirectionType" />
 
@@ -70,15 +69,14 @@
         android:id="@+id/materialCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
         android:animateLayoutChanges="true"
         app:cardCornerRadius="5dp"
         app:cardElevation="10dp"
         app:cardUseCompatPadding="true"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnAddFavorites"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textViewDirectionPokemonDescription">
@@ -112,11 +110,9 @@
                 android:layout_height="200dp"
                 android:scrollbars="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/btnAddFavorites"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintVertical_bias="0.0"
                 app:layout_constraintTop_toBottomOf="@id/textViewEvolutions"
                 tools:itemCount="3"
                 tools:listitem="@layout/evolution_cell" />
@@ -133,9 +129,21 @@
         android:text="@string/pokemon_evolution_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textStyle="bold"
+        android:layout_marginTop="30dp"
         app:layout_constraintBottom_toTopOf="@+id/materialCardView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textViewDirectionPokemonDescription"
-        app:layout_constraintVertical_bias="1.0" />
+         />
+
+    <Button
+        android:id="@+id/btnAddFavorites"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/add_favorites_button"
+        android:layout_marginBottom="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

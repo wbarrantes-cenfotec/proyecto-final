@@ -8,13 +8,13 @@
 
     <!-- TODO: Update blank fragment layout -->
     
-    <com.example.pokeapp.widgets.EmptyStateWidget
+<!--    <com.example.pokeapp.widgets.EmptyStateWidget
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:description="No hay pokemones favoritos!"
+        app:description="@string/empty_state_string"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
