@@ -58,7 +58,7 @@ class PokemonDetailFragment : Fragment(R.layout.fragment_pokemon_detail) {
         val url = arguments.pokemon.pokemonUrl
         viewModel.getPokemonDetail(url)
 
-        viewModel.pokemonDetail.observe(viewLifecycleOwner, Observer { pokemon ->
+        viewModel.pokemonDetail.observe(viewLifecycleOwner, { pokemon ->
             binding.textViewDirectionPokemonNameDetail.text = pokemon.name.toUpperCase(Locale.ROOT)
 
             Glide.with(binding.imageViewDirectionPokemon.context)
@@ -79,7 +79,7 @@ class PokemonDetailFragment : Fragment(R.layout.fragment_pokemon_detail) {
             //binding.textViewDirectionWeakness.text = pokemon.weight.toString()
         })
 
-        viewModel.pokemonDetail.observe(viewLifecycleOwner, Observer { pokemon ->
+        viewModel.pokemonDetail.observe(viewLifecycleOwner, { pokemon ->
             binding.textViewDirectionPokemonNameDetail.text = pokemon.name.toUpperCase(Locale.ROOT)
 
             Glide.with(binding.imageViewDirectionPokemon.context)
@@ -100,20 +100,20 @@ class PokemonDetailFragment : Fragment(R.layout.fragment_pokemon_detail) {
 
         })
 
-        viewModel.pokemonDescriptionCompleted.observe(viewLifecycleOwner, Observer { pokemonDescription ->
+        viewModel.pokemonDescriptionCompleted.observe(viewLifecycleOwner, { pokemonDescription ->
             binding.textViewDirectionPokemonDescription.text = pokemonDescription.toString()
         })
 
         binding.pokemonEvolutionRecyclerView.adapter = adapter
 
-        viewModel.pokemonEvolutionList.observe(viewLifecycleOwner, Observer { pokemonEvolutionList ->
+        viewModel.pokemonEvolutionList.observe(viewLifecycleOwner, { pokemonEvolutionList ->
 
             adapter.pokemonEvolutions = pokemonEvolutionList
 
         })
 
         //toggle imageview resource on created
-        var isFavorite:Int = 0
+        var isFavorite = 0
         disposable.add(
             favViewModel.isFavorite(arguments.pokemon.name)
                 .subscribeOn(Schedulers.io())
@@ -153,20 +153,14 @@ class PokemonDetailFragment : Fragment(R.layout.fragment_pokemon_detail) {
                 ).show()
                 isFavorite = 0
             }
-
         }
-
-
-
-
-
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         disposable.clear()
         _binding = null
     }
-
 
     private fun setImageInSlider(images: ArrayList<String>, imageSlider: SliderView) {
         val adapter = SliderImageAdapter()
