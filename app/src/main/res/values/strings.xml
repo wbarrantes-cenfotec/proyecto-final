@@ -18,6 +18,8 @@
     <string name="search_hint">Buscar</string>
     <string name="email_input_hint">Correo electrónico</string>
     <string name="loading_description_text">Por favor espere un momento...</string>
+    <string name="pokemon_image_description">Pokemon Image</string>
+    <string name="profile_title">PERFIL DE ENTRENADOR</string>
     <string name="empty_state_string">No hay pokemones favoritos!</string>
     <string name="add_favorites_button">Agregar a Favoritos</string>
 </resources>
