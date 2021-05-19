@@ -17,7 +17,11 @@
         android:id="@+id/favoritesFragment"
         android:name="com.example.pokeapp.fragments.FavoritesFragment"
         android:label="fragment_favorites"
-        tools:layout="@layout/fragment_favorites" />
+        tools:layout="@layout/fragment_favorites" >
+        <action
+            android:id="@+id/action_favoritesFragment_to_pokemonDetailFragment2"
+            app:destination="@id/pokemonDetailFragment2" />
+    </fragment>
     <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.pokeapp.fragments.ProfileFragment"

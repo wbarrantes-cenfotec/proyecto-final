@@ -7,14 +7,39 @@
     tools:context=".fragments.FavoritesFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    
-<!--    <com.example.pokeapp.widgets.EmptyStateWidget
+
+    <com.example.pokeapp.widgets.EmptyStateWidget
+        android:id="@+id/emptyStateWidget"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:visibility="invisible"
         app:description="@string/empty_state_string"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />-->
+        app:layout_constraintTop_toTopOf="parent">
+    </com.example.pokeapp.widgets.EmptyStateWidget>
 
+    <TextView
+            android:id="@+id/favTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:text="MIS FAVORITOS"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/favoriteListRecyclerView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="16dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/favTitleTextView"
+        tools:listitem="@layout/pokemon_cell" />
 </androidx.constraintlayout.widget.ConstraintLayout>

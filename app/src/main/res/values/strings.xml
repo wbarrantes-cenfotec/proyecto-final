@@ -22,4 +22,6 @@
     <string name="profile_title">PERFIL DE ENTRENADOR</string>
     <string name="empty_state_string">No hay pokemones favoritos!</string>
     <string name="add_favorites_button">Agregar a Favoritos</string>
+    <string name="added_to_favs">Agregado a Favoritos</string>
+    <string name="removed_from_favs">Eliminado de Favoritos</string>
 </resources>
