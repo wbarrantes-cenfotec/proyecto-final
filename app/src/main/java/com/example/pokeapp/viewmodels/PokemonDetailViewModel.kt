@@ -167,14 +167,13 @@ class PokemonDetailViewModel : ViewModel() {
 
                             // in case it has multiple evolutions iterate over each one and add to the list
                             if (hasMultipleEvolutions) {
-                                for (i in 1..numberOfEvolutions) {
+                                for (i in 1 until numberOfEvolutions) {
 
                                     evolutionList.add(ChainLink(
                                             evolutionData.evolves_to[i].isBaby,
                                             evolutionData.evolves_to[i].species,
                                             evolutionData.evolves_to[i].evolutionDetails,
-                                            evolutionData.evolves_to[i].evolves_to
-
+                                            emptyList()
                                     ))
                                 }
                             }
@@ -229,7 +228,7 @@ class PokemonDetailViewModel : ViewModel() {
             }
         }
 
-        return description
+        return description.replace("\n", " ")
     }
 
     private fun getPokemonId(pokemonURL: String): Int {
