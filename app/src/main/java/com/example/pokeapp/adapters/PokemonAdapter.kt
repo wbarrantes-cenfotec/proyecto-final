@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.pokeapp.R
 import com.example.pokeapp.databinding.PokemonCellBinding
 import com.example.pokeapp.fragments.PokemonListFragmentDirections
 import com.example.pokeapp.models.Pokemon
@@ -46,6 +47,7 @@ class PokemonAdapter : RecyclerView.Adapter<PokemonAdapter.PokemonViewHolder>() 
             // load the pokemon image
             Glide.with(binding.root)
                 .load(pokemonImageUrl)
+                .placeholder(R.drawable.placeholder)
                 .circleCrop()
                 .into(binding.imageViewPokemonImage)
         }
