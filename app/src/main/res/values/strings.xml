@@ -17,4 +17,6 @@
     <string name="loading_description_text">Por favor espere un momento...</string>
     <string name="pokemon_image_description">Pokemon Image</string>
     <string name="profile_title">PERFIL DE ENTRENADOR</string>
+    <string name="total_favorites_text">Favoritos</string>
+    <string name="goto_favorites_text">Ver Favoritos</string>
 </resources>
