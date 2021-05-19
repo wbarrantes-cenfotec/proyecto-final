@@ -111,6 +111,7 @@
         android:layout_marginTop="32dp"
         android:enabled="false"
         android:text="@string/enter_button"
+        android:backgroundTint="@color/background_selector_color"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/imageView"
         app:layout_constraintHorizontal_bias="0.5"
