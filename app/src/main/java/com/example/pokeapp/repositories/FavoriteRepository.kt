@@ -25,4 +25,5 @@ class FavoriteRepository(context:Context){
         return database.getFavoriteDAO().delFavorite(keyword)
     }
 
+    fun getTotalFavorites(): Observable<Int> = database.getFavoriteDAO().getTotalFavorites()
 }
